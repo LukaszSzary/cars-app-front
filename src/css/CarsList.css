@@ -5,6 +5,6 @@ li{
     line-height: 150%;
 }
 li:hover{
-    font-weight: 900;
+    background-color: aquamarine;
     cursor: pointer;
 }

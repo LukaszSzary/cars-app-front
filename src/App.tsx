@@ -3,13 +3,13 @@ import axios from 'axios';
 import { Car} from './Car';
 import { useState ,useEffect } from 'react';
 import CarsList from './CarsList';
-
+import CarDetails from './CarDetails';
+import './css/App.css';
 
 function App() {
   const URL = 'https://localhost:7225/api/Cars/';
-
   const [Cars, setCars] = useState<Car[]>([]);
- 
+  const [SelectedCar, setSelectedCar] = useState<Car>();
   //useEffects
   useEffect(() => {
     axios.get<Car[]>(URL).then(responce => { setCars(responce.data) })
@@ -17,24 +17,14 @@ function App() {
 
   //temporaty stuff
   function Details(){}
-  const [Car, setCar] = useState<Car>({
-    "id": "1993d559-96a7-437b-b36b-11b204d2b3b0",
-    "brand": "Renault",
-    "model": "Clio II",
-    "doorsNumber": 5,
-    "luggageCapacity": 300,
-    "engineCapacity": 1149,
-    "fuelType": 3,
-    "productionDate": "2018",
-    "carFuelConsumption": 7.2,
-    "bodyType": 0
-  });
+ 
     const [id, setId] = useState<string>();
   //end
   return (
     <div className="App">
 
-      <CarsList cars={Cars} details={Details}/>
+      {!SelectedCar && <CarsList cars={Cars} setCar={setSelectedCar}/>}
+      {SelectedCar && <CarDetails car={SelectedCar} />}
       
       
     </div>
