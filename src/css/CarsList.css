@@ -1,0 +1,10 @@
+h3{
+    text-align: center;
+}
+li{
+    line-height: 150%;
+}
+li:hover{
+    font-weight: 900;
+    cursor: pointer;
+}
