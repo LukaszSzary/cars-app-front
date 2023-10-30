@@ -7,10 +7,11 @@ import './css/CarDetails.css';
 //import Select from 'react-select';
 interface CD {
     car: Car
-    setCar: (car: Car | undefined) => void
+    setCar: (car: Car | undefined) => void,
+    saveEditedCar:(car: Car | undefined) => void
 }
 
-export default function CarDetails({ car, setCar }: CD) {
+export default function CarDetails({ car, setCar ,saveEditedCar}: CD) {
 
     const [validated, setValidated] = useState<boolean>(false);
     const [localCar, setLocalCar] = useState<Car>(
@@ -21,13 +22,14 @@ export default function CarDetails({ car, setCar }: CD) {
             doorsNumber: car.doorsNumber,
             luggageCapacity: car.luggageCapacity,
             engineCapacity: car.engineCapacity,
-            fuelType: car.fuelType,//string,
+            fuelType: car.fuelType,
             productionDate: car.productionDate,
             carFuelConsumption: car.carFuelConsumption,
             bodyType: car.bodyType
         })
-    const handleSubmit = () => {
 
+    const handleSubmit = () => {
+        saveEditedCar(localCar);
     }
 
     return (

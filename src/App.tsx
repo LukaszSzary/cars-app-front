@@ -10,17 +10,29 @@ function App() {
   const URL = 'https://localhost:7225/api/Cars/';
   const [Cars, setCars] = useState<Car[]>([]);
   const [SelectedCar, setSelectedCar] = useState<Car | undefined>();
+  const [EditedCar, setEditedCar] = useState<Car|undefined >();
 
   //useEffects
   useEffect(() => {
     axios.get<Car[]>(URL).then(responce => { setCars(responce.data) })
   }, [URL]);
 
+  useEffect(() => {
+    /*function voodo(e: Car) {
+      if (e.id === EditedCar?.id) {
+        e.brand = EditedCar.brand;
+      }
+    }
+    Cars.map(e => voodo(e));*/
+    alert(EditedCar?.brand); //tuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu alert jest
+  }, [EditedCar])
+
+  
   return (
     <div className="App">
-
+      <h5>{EditedCar?.brand}</h5>
       {<CarsList cars={Cars} setCar={setSelectedCar} selectedCar={SelectedCar} />}
-      {SelectedCar && <CarDetails car={SelectedCar} setCar={setSelectedCar} />}
+      {SelectedCar && <CarDetails car={SelectedCar} setCar={setSelectedCar} saveEditedCar={setEditedCar} />}
 
 
     </div>
