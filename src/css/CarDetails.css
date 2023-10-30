@@ -1,0 +1,20 @@
+#CarDetails{
+    display: flex;
+    flex-direction: column;
+    
+    
+}
+Form{
+    
+    display: column;
+    flex-wrap: wrap;
+   
+}
+Form div{
+    
+    display :flex;
+    justify-content: space-between;
+}
+select{
+    width:52.75%;
+}

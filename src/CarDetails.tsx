@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Car } from './Car';
+import './css/CarDetails.css';
 
 //import Select from 'react-select';
 interface CD {
@@ -31,7 +32,7 @@ export default function CarDetails({ car, setCar }: CD) {
 
     return (
         <div id="CarDetails">
-            <label>{car.brand}</label>
+            <label><h3>Szczegóły</h3></label>
 
             <Form noValidate validated={validated} onSubmit={handleSubmit} onReset={handleSubmit}>
 
@@ -82,11 +83,11 @@ export default function CarDetails({ car, setCar }: CD) {
                         <option value="4">Roadster</option>
                     </select>
                 </Form.Group>
-
-
-
-
-                <Button type="button" onClick={() => setCar(undefined)}>Odrzuć zmiany</Button><Button type="submit"> Zapisz zmiany</Button>
+                <div id="buttons">
+                    <Button onClick={() => alert("OMGGG?!!")}>Usuń auto</Button>
+                    <Button type="button" onClick={() => setCar(undefined)}>Odrzuć zmiany</Button>
+                    <Button type="submit"> Zapisz zmiany</Button>
+                </div>
             </Form>
         </div>
     )
