@@ -2,16 +2,17 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Car } from './Car';
-import './css/CarDetails.css';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './css/CarDetails.css';
 //import Select from 'react-select';
 interface CD {
     car: Car
     setCar: (car: Car | undefined) => void,
-    saveEditedCar:(car: Car | undefined) => void
+    saveEditedCar: (car: Car | undefined) => void
 }
 
-export default function CarDetails({ car, setCar ,saveEditedCar}: CD) {
+export default function CarDetails({ car, setCar, saveEditedCar }: CD) {
 
     const [validated, setValidated] = useState<boolean>(false);
     const [localCar, setLocalCar] = useState<Car>(
@@ -28,19 +29,25 @@ export default function CarDetails({ car, setCar ,saveEditedCar}: CD) {
             bodyType: car.bodyType
         })
 
-    const handleSubmit = () => {
-        saveEditedCar(localCar);
+    const handleSubmit = (event:React.FormEvent<HTMLFormElement>) => {
+        const form=event.currentTarget;
+        if(form.checkValidity()===false){
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        setValidated(true);
+        saveEditedCar(localCar);  
     }
 
     return (
         <div id="CarDetails">
-            <label><h3>Szczegóły</h3></label>
+            <Form.Label><h3>Szczegóły</h3></Form.Label>
 
-            <Form noValidate validated={validated} onSubmit={handleSubmit} onReset={handleSubmit}>
+            <Form noValidate validated={validated} onSubmit={handleSubmit}>
 
                 <Form.Group controlId='Fbrand' >
                     <Form.Label>Marka</Form.Label>
-                    <Form.Control required type="text" defaultValue={localCar.brand} onChange={e => { setLocalCar({ ...localCar, brand: e.target.value }) }} />
+                    <Form.Control type="text" defaultValue={localCar.brand} onChange={e => { setLocalCar({ ...localCar, brand: e.target.value }) }} required />
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Model</Form.Label>
@@ -48,24 +55,24 @@ export default function CarDetails({ car, setCar ,saveEditedCar}: CD) {
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Liczba drzwi</Form.Label>
-                    <Form.Control required type="text" defaultValue={localCar.doorsNumber} onChange={e => { setLocalCar({ ...localCar, doorsNumber: Number(e.target.value) }) }} />
+                    <Form.Control required type="number" defaultValue={localCar.doorsNumber} onChange={e => { setLocalCar({ ...localCar, doorsNumber: Number(e.target.value) }) }} />
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Pojemność bagażnika</Form.Label>
-                    <Form.Control required type="text" defaultValue={localCar.luggageCapacity} onChange={e => { setLocalCar({ ...localCar, luggageCapacity: Number(e.target.value) }) }} />
+                    <Form.Control required type="number" defaultValue={localCar.luggageCapacity} onChange={e => { setLocalCar({ ...localCar, luggageCapacity: Number(e.target.value) }) }} />
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Pojemność silnika</Form.Label>
-                    <Form.Control required type="text" defaultValue={localCar.engineCapacity} onChange={e => { setLocalCar({ ...localCar, engineCapacity: Number(e.target.value) }) }} />
+                    <Form.Control required type="number" defaultValue={localCar.engineCapacity} onChange={e => { setLocalCar({ ...localCar, engineCapacity: Number(e.target.value) }) }} />
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Rodzaj paliwa</Form.Label>
-                    <select aria-label="fuelType" defaultValue={localCar.fuelType} onChange={e => { setLocalCar({ ...localCar, fuelType: Number(e.target.value) }) }}>
+                    <Form.Select aria-label="fuelType" defaultValue={localCar.fuelType} onChange={e => { setLocalCar({ ...localCar, fuelType: Number(e.target.value) }) }}>
                         <option value="0">Petrol</option>
                         <option value="1">Hybrid</option>
                         <option value="2">Diesel</option>
                         <option value="3">LPG</option>
-                    </select>
+                    </Form.Select>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Data produkcji</Form.Label>
@@ -73,17 +80,17 @@ export default function CarDetails({ car, setCar ,saveEditedCar}: CD) {
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Spalanie</Form.Label>
-                    <Form.Control required type="text" defaultValue={localCar.carFuelConsumption} onChange={e => { setLocalCar({ ...localCar, carFuelConsumption: Number(e.target.value) }) }} />
+                    <Form.Control required type="number" defaultValue={localCar.carFuelConsumption} onChange={e => { setLocalCar({ ...localCar, carFuelConsumption: Number(e.target.value) }) }} />
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Rodzaj</Form.Label>
-                    <select aria-label="bodyType" defaultValue={localCar.bodyType} onChange={e => { setLocalCar({ ...localCar, bodyType: Number(e.target.value) }) }}>
+                    <Form.Select aria-label="bodyType" defaultValue={localCar.bodyType} onChange={e => { setLocalCar({ ...localCar, bodyType: Number(e.target.value) }) }}>
                         <option value="0">Hatchback</option>
                         <option value="1">Sedan</option>
                         <option value="2">Kombi</option>
                         <option value="3">SUV</option>
                         <option value="4">Roadster</option>
-                    </select>
+                    </Form.Select>
                 </Form.Group>
                 <div id="buttons">
                     <Button onClick={() => alert("OMGGG?!!")}>Usuń auto</Button>

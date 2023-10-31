@@ -11,21 +11,26 @@ function App() {
   const [Cars, setCars] = useState<Car[]>([]);
   const [SelectedCar, setSelectedCar] = useState<Car | undefined>();
   const [EditedCar, setEditedCar] = useState<Car|undefined >();
-
+  let p=true;
   //useEffects
   useEffect(() => {
-    axios.get<Car[]>(URL).then(responce => { setCars(responce.data) })
+    //alert("api");
+    axios.get<Car[]>(URL).then(responce => { setCars(responce.data) });
+      
+  
   }, [URL]);
 
   useEffect(() => {
-    /*function voodo(e: Car) {
+    function voodo(e: Car) {
       if (e.id === EditedCar?.id) {
         e.brand = EditedCar.brand;
+        alert(EditedCar.doorsNumber);
       }
     }
-    Cars.map(e => voodo(e));*/
-    alert(EditedCar?.brand); //tuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu alert jest
-  }, [EditedCar])
+    Cars.map(e => voodo(e))
+   // alert(EditedCar?.brand); //tuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu alert jest
+    
+  }, [EditedCar,Cars])
 
   
   return (
