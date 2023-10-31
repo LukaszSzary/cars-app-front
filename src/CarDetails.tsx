@@ -2,17 +2,17 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Car } from './Car';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/CarDetails.css';
-//import Select from 'react-select';
+
 interface CD {
     car: Car
     setCar: (car: Car | undefined) => void,
-    saveEditedCar: (car: Car | undefined) => void
+    saveEditedCar: (car: Car | undefined) => void,
+    setIdOfCarToDelete: (a: string | undefined) => void
 }
 
-export default function CarDetails({ car, setCar, saveEditedCar }: CD) {
+export default function CarDetails({ car, setCar, saveEditedCar, setIdOfCarToDelete }: CD) {
 
     const [validated, setValidated] = useState<boolean>(false);
     const [localCar, setLocalCar] = useState<Car>(
@@ -38,6 +38,10 @@ export default function CarDetails({ car, setCar, saveEditedCar }: CD) {
         setValidated(true);
         saveEditedCar(localCar);
     }
+    function deleteCar(){
+        setIdOfCarToDelete(car.id)
+        setCar(undefined)
+        }
 
     return (
         <div id="CarDetails">
@@ -59,11 +63,11 @@ export default function CarDetails({ car, setCar, saveEditedCar }: CD) {
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Pojemność bagażnika</Form.Label>
-                    <Form.Control required type="number" defaultValue={localCar.luggageCapacity} onChange={e => { setLocalCar({ ...localCar, luggageCapacity: Number(e.target.value) }) }} />
+                    <Form.Control required type="number" step={0.1} defaultValue={localCar.luggageCapacity} onChange={e => { setLocalCar({ ...localCar, luggageCapacity: Number(e.target.value) }) }} />
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Pojemność silnika</Form.Label>
-                    <Form.Control required min={0.9} type="number" defaultValue={localCar.engineCapacity} onChange={e => { setLocalCar({ ...localCar, engineCapacity: Number(e.target.value) }) }} />
+                    <Form.Control required min={0.9} step={0.1} type="number" defaultValue={localCar.engineCapacity} onChange={e => { setLocalCar({ ...localCar, engineCapacity: Number(e.target.value) }) }} />
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Rodzaj paliwa</Form.Label>
@@ -80,7 +84,7 @@ export default function CarDetails({ car, setCar, saveEditedCar }: CD) {
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Spalanie</Form.Label>
-                    <Form.Control required min={1} type="number" defaultValue={localCar.carFuelConsumption} onChange={e => { setLocalCar({ ...localCar, carFuelConsumption: Number(e.target.value) }) }} />
+                    <Form.Control required min={1} step={0.1} type="number" defaultValue={localCar.carFuelConsumption} onChange={e => { setLocalCar({ ...localCar, carFuelConsumption: Number(e.target.value) }) }} />
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Rodzaj</Form.Label>
@@ -93,7 +97,7 @@ export default function CarDetails({ car, setCar, saveEditedCar }: CD) {
                     </Form.Select>
                 </Form.Group>
                 <div id="buttons">
-                    <Button onClick={() => alert("OMGGG?!!")}>Usuń auto</Button>
+                    <Button onClick={() => deleteCar()}>Usuń auto</Button>
                     <Button type="button" onClick={() => setCar(undefined)}>Odrzuć zmiany</Button>
                     <Button type="submit"> Zapisz zmiany</Button>
                 </div>

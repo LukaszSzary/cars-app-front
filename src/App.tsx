@@ -1,13 +1,11 @@
-import React from 'react';
 import axios from 'axios';
 import { Car } from './Car';
 import { useState, useEffect } from 'react';
 import CarsList from './CarsList';
 import CarDetails from './CarDetails';
 import './css/App.css';
-import { Button } from 'react-bootstrap';
 import AddCar from './AddCar';
-import {CarToAdd} from './CarToAdd';
+import { CarToAdd } from './CarToAdd';
 
 function App() {
   //useStates
@@ -17,7 +15,7 @@ function App() {
   const [EditedCar, setEditedCar] = useState<Car | undefined>();
   const [ProcessOfAddingCarInProgress, setProcessOfAddingCarInProgress] = useState<boolean>(false);
   const [CarToAdd, setCarToAdd] = useState<CarToAdd | undefined>();
-
+  const [IdOfCarToDelete, setIdOfCarToDelete] = useState<string | undefined>();
   //useEffects
   useEffect(() => {
     axios.get<Car[]>(URL).then(responce => { setCars(responce.data) });
@@ -29,15 +27,27 @@ function App() {
     }
   }, [EditedCar])
 
+  useEffect(() => {
+    if (CarToAdd !== undefined) {
+      axios.post<CarToAdd>(URL, CarToAdd);
+    }
+
+  }, [CarToAdd])
+
+  useEffect(() => {
+    if (IdOfCarToDelete !== undefined) {
+      axios.delete<string>(URL.concat('?id=').concat(IdOfCarToDelete));
+    }
+
+  }, [IdOfCarToDelete])
+
 
   return (
     <div className="App">
-      <h5>{EditedCar?.brand}</h5>
 
       {<CarsList cars={Cars} setCar={setSelectedCar} selectedCar={SelectedCar} addCar={setProcessOfAddingCarInProgress} isCarBeeingAdded={ProcessOfAddingCarInProgress} />}
-      {SelectedCar && <CarDetails car={SelectedCar} setCar={setSelectedCar} saveEditedCar={setEditedCar} />}
-      {ProcessOfAddingCarInProgress && <AddCar setCarToAdd={setCarToAdd} />}
-
+      {SelectedCar && <CarDetails car={SelectedCar} setCar={setSelectedCar} saveEditedCar={setEditedCar} setIdOfCarToDelete={setIdOfCarToDelete} />}
+      {ProcessOfAddingCarInProgress && <AddCar setCarToAdd={setCarToAdd} setProcessOfAddingCarInProgress={setProcessOfAddingCarInProgress} />}
 
     </div>
   );
