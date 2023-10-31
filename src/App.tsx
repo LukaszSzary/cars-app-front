@@ -7,30 +7,21 @@ import CarDetails from './CarDetails';
 import './css/App.css';
 
 function App() {
-  const URL = 'https://localhost:7225/api/Cars/';
+  const URL = 'https://localhost:7225/api/Cars';
   const [Cars, setCars] = useState<Car[]>([]);
   const [SelectedCar, setSelectedCar] = useState<Car | undefined>();
   const [EditedCar, setEditedCar] = useState<Car|undefined >();
   let p=true;
   //useEffects
   useEffect(() => {
-    //alert("api");
     axios.get<Car[]>(URL).then(responce => { setCars(responce.data) });
-      
-  
   }, [URL]);
 
   useEffect(() => {
-    function voodo(e: Car) {
-      if (e.id === EditedCar?.id) {
-        e.brand = EditedCar.brand;
-        alert(EditedCar.doorsNumber);
-      }
-    }
-    Cars.map(e => voodo(e))
-   // alert(EditedCar?.brand); //tuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu alert jest
-    
-  }, [EditedCar,Cars])
+    if(EditedCar!==undefined){
+    axios.put<Car>(URL, EditedCar);
+    } 
+  }, [EditedCar])
 
   
   return (
