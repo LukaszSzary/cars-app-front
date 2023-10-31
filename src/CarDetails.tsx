@@ -38,10 +38,10 @@ export default function CarDetails({ car, setCar, saveEditedCar, setIdOfCarToDel
         setValidated(true);
         saveEditedCar(localCar);
     }
-    function deleteCar(){
+    function deleteCar() {
         setIdOfCarToDelete(car.id)
         setCar(undefined)
-        }
+    }
 
     return (
         <div id="CarDetails">
@@ -63,11 +63,11 @@ export default function CarDetails({ car, setCar, saveEditedCar, setIdOfCarToDel
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Pojemność bagażnika</Form.Label>
-                    <Form.Control required type="number" step={0.1} defaultValue={localCar.luggageCapacity} onChange={e => { setLocalCar({ ...localCar, luggageCapacity: Number(e.target.value) }) }} />
+                    <Form.Control required type="number" defaultValue={localCar.luggageCapacity} onChange={e => { setLocalCar({ ...localCar, luggageCapacity: Number(e.target.value) }) }} />
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Pojemność silnika</Form.Label>
-                    <Form.Control required min={0.9} step={0.1} type="number" defaultValue={localCar.engineCapacity} onChange={e => { setLocalCar({ ...localCar, engineCapacity: Number(e.target.value) }) }} />
+                    <Form.Control required min={1} type="number" defaultValue={localCar.engineCapacity} onChange={e => { setLocalCar({ ...localCar, engineCapacity: Number(e.target.value) }) }} />
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Rodzaj paliwa</Form.Label>

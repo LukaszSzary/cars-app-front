@@ -55,11 +55,11 @@ export default function AddCar({ setCarToAdd, setProcessOfAddingCarInProgress }:
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Pojemność bagażnika</Form.Label>
-                    <Form.Control required type="number" step={0.1} onChange={e => { setLocalCarToAdd({ ...localCarToAdd, luggageCapacity: Number(e.target.value) }) }} />
+                    <Form.Control required type="number"  onChange={e => { setLocalCarToAdd({ ...localCarToAdd, luggageCapacity: Number(e.target.value) }) }} />
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Pojemność silnika</Form.Label>
-                    <Form.Control required min={0.9} step={0.1} type="number" onChange={e => { setLocalCarToAdd({ ...localCarToAdd, engineCapacity: Number(e.target.value) }) }} />
+                    <Form.Control required min={1}  type="number" onChange={e => { setLocalCarToAdd({ ...localCarToAdd, engineCapacity: Number(e.target.value) }) }} />
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Rodzaj paliwa</Form.Label>
