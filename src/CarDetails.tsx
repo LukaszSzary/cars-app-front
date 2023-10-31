@@ -29,14 +29,14 @@ export default function CarDetails({ car, setCar, saveEditedCar }: CD) {
             bodyType: car.bodyType
         })
 
-    const handleSubmit = (event:React.FormEvent<HTMLFormElement>) => {
-        const form=event.currentTarget;
-        if(form.checkValidity()===false){
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
         }
         setValidated(true);
-        saveEditedCar(localCar);  
+        saveEditedCar(localCar);
     }
 
     return (
@@ -45,7 +45,7 @@ export default function CarDetails({ car, setCar, saveEditedCar }: CD) {
 
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
 
-                <Form.Group controlId='Fbrand' >
+                <Form.Group>
                     <Form.Label>Marka</Form.Label>
                     <Form.Control type="text" defaultValue={localCar.brand} onChange={e => { setLocalCar({ ...localCar, brand: e.target.value }) }} required />
                 </Form.Group>
@@ -55,7 +55,7 @@ export default function CarDetails({ car, setCar, saveEditedCar }: CD) {
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Liczba drzwi</Form.Label>
-                    <Form.Control required type="number" defaultValue={localCar.doorsNumber} onChange={e => { setLocalCar({ ...localCar, doorsNumber: Number(e.target.value) }) }} />
+                    <Form.Control required min={1} type="number" defaultValue={localCar.doorsNumber} onChange={e => { setLocalCar({ ...localCar, doorsNumber: Number(e.target.value) }) }} />
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Pojemność bagażnika</Form.Label>
@@ -63,7 +63,7 @@ export default function CarDetails({ car, setCar, saveEditedCar }: CD) {
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Pojemność silnika</Form.Label>
-                    <Form.Control required type="number" defaultValue={localCar.engineCapacity} onChange={e => { setLocalCar({ ...localCar, engineCapacity: Number(e.target.value) }) }} />
+                    <Form.Control required min={0.9} type="number" defaultValue={localCar.engineCapacity} onChange={e => { setLocalCar({ ...localCar, engineCapacity: Number(e.target.value) }) }} />
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Rodzaj paliwa</Form.Label>
@@ -76,11 +76,11 @@ export default function CarDetails({ car, setCar, saveEditedCar }: CD) {
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Data produkcji</Form.Label>
-                    <Form.Control required type="text" defaultValue={localCar.productionDate.substring(0, 10)} onChange={e => { setLocalCar({ ...localCar, productionDate: e.target.value }) }} />
+                    <Form.Control required type="date" defaultValue={localCar.productionDate.substring(0, 10)} onChange={e => { setLocalCar({ ...localCar, productionDate: e.target.value }) }} />
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Spalanie</Form.Label>
-                    <Form.Control required type="number" defaultValue={localCar.carFuelConsumption} onChange={e => { setLocalCar({ ...localCar, carFuelConsumption: Number(e.target.value) }) }} />
+                    <Form.Control required min={1} type="number" defaultValue={localCar.carFuelConsumption} onChange={e => { setLocalCar({ ...localCar, carFuelConsumption: Number(e.target.value) }) }} />
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Rodzaj</Form.Label>

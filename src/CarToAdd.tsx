@@ -1,7 +1,4 @@
-export let FUELTYPES=['Petrol','Hybrid','Diesel','LPG'];
-export let BODYTYPES= ['Hatchback','Sedan','Kombi','SUV','Roadster' ];
-export interface Car{
-    id : string,
+export interface CarToAdd{
     brand: string,
     model: string,
     doorsNumber: number,
