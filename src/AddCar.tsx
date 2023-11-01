@@ -3,6 +3,7 @@ import { CarToAdd } from './CarToAdd';
 import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import React from 'react';
 
 interface AC {
     setCarToAdd: (a: CarToAdd | undefined) => void,
@@ -33,8 +34,10 @@ export default function AddCar({ setCarToAdd, setProcessOfAddingCarInProgress }:
             event.stopPropagation();
         }
         setValidated(true);
-        setCarToAdd(localCarToAdd);
-        
+        if (validated) {
+            setCarToAdd(localCarToAdd);
+        }
+
     }
 
     return (
@@ -55,11 +58,11 @@ export default function AddCar({ setCarToAdd, setProcessOfAddingCarInProgress }:
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Pojemność bagażnika</Form.Label>
-                    <Form.Control required type="number"  onChange={e => { setLocalCarToAdd({ ...localCarToAdd, luggageCapacity: Number(e.target.value) }) }} />
+                    <Form.Control required type="number" min={0} onChange={e => { setLocalCarToAdd({ ...localCarToAdd, luggageCapacity: Number(e.target.value) }) }} />
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Pojemność silnika</Form.Label>
-                    <Form.Control required min={1}  type="number" onChange={e => { setLocalCarToAdd({ ...localCarToAdd, engineCapacity: Number(e.target.value) }) }} />
+                    <Form.Control required min={1} type="number" onChange={e => { setLocalCarToAdd({ ...localCarToAdd, engineCapacity: Number(e.target.value) }) }} />
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Rodzaj paliwa</Form.Label>

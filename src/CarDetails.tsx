@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import { Car } from './Car';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/CarDetails.css';
+import React from 'react';
 
 interface CD {
     car: Car
@@ -63,7 +64,7 @@ export default function CarDetails({ car, setCar, saveEditedCar, setIdOfCarToDel
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Pojemność bagażnika</Form.Label>
-                    <Form.Control required type="number" defaultValue={localCar.luggageCapacity} onChange={e => { setLocalCar({ ...localCar, luggageCapacity: Number(e.target.value) }) }} />
+                    <Form.Control required type="number" min={0} defaultValue={localCar.luggageCapacity} onChange={e => { setLocalCar({ ...localCar, luggageCapacity: Number(e.target.value) }) }} />
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Pojemność silnika</Form.Label>

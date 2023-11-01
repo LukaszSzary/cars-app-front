@@ -37,6 +37,7 @@ function App() {
   useEffect(() => {
     if (IdOfCarToDelete !== undefined) {
       axios.delete<string>(URL.concat('?id=').concat(IdOfCarToDelete));
+      setCars(Cars.filter((e) => e.id !== IdOfCarToDelete));
     }
 
   }, [IdOfCarToDelete])

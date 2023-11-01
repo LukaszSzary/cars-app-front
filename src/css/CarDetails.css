@@ -1,0 +1,9 @@
+#CarDetails{
+    display: column;
+    align-items: center;
+    text-align: center;
+
+}
+Form{
+    text-align: left;
+}
